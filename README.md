@@ -76,7 +76,7 @@ Hecho esto el swagger del proyecto deberia ser accesible via navegador en <http:
 
 ## Contrato-API REST
 
-Para la capa REST he definido un Swagger2.0 que contiene los tres contratos, para su validación he empleado [herramientas](https://42crunch.com/) de control de calidad de APIs basadas en la normativa definida por  *OWASP Top 10 for API Security*. Con el siguiente resultado:
+Para la capa REST he definido un Swagger2.0 que contiene los tres [contratos](https://github.com/pedrodlf/poc-iobuilders/blob/main/src/main/resources/generador_1.0.1.yaml), para su validación he empleado [herramientas](https://42crunch.com/) de control de calidad de APIs basadas en la normativa definida por  *OWASP Top 10 for API Security*. Con el siguiente resultado:
 
 ![Security Audit](doc-resources/SecurityAudit.PNG)
 
@@ -97,8 +97,6 @@ Para la capa REST he definido un Swagger2.0 que contiene los tres contratos, par
 El proyecto esta pensado para exponer los servicios via REST. No obstante el plantamiento de la aplicación en cuanto a su desarrollo, esta desarrollado para poder añadir otros adaptadores si fuera necesario. Este desacoplamiento entre servicios de dominio viene dado por uno de los requisitos de la POC que era su desarrollo en base a una Arquitectura Hexagonal y el uso de DDD. Todo esto sin olvidarnos del los principios de  API-First y las buenas practicas de desarrollo de Micro Servicios.
 
 Para  una  lograr una aproximación a una arquitectura Hexagonal he planteado de dentro a fuera las siguientes capas:
-
-
 
 ### Dominio-Entidad
 
