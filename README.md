@@ -7,6 +7,10 @@
   - [Necesidades](#necesidades)
   - [Descripción](#descripción)
   - [Instalación](#instalación)
+  - [Contrato-API REST](#contrato-api-rest)
+    - [Users API](#users-api)
+    - [Accounts API](#accounts-api)
+    - [Transactions API](#transactions-api)
   - [Desarrollo](#desarrollo)
     - [Dominio-Entidad](#dominio-entidad)
       - [User](#user)
@@ -70,13 +74,31 @@ Para ejecutar el proyecto, con el terminal en la raiz del mismo lanzaremos el si
 
 Hecho esto el swagger del proyecto deberia ser accesible via navegador en <http://localhost:8080/swagger-ui.html#/>
 
+## Contrato-API REST
+
+Para la capa REST he definido un Swagger2.0 que contiene los tres contratos, para su validación he empleado [herramientas](https://42crunch.com/) de control de calidad de APIs basadas en la normativa definida por  *OWASP Top 10 for API Security*. Con el siguiente resultado:
+
+![Security Audit](doc-resources/SecurityAudit.PNG)
+
+### Users API
+
+![Security Audit](doc-resources/UsersAPI.PNG)
+
+### Accounts API
+
+![Security Audit](doc-resources/AccountsAPI.PNG)
+
+### Transactions API
+
+![Security Audit](doc-resources/TransactionsAPI.PNG)
+
 ## Desarrollo
 
 El proyecto esta pensado para exponer los servicios via REST. No obstante el plantamiento de la aplicación en cuanto a su desarrollo, esta desarrollado para poder añadir otros adaptadores si fuera necesario. Este desacoplamiento entre servicios de dominio viene dado por uno de los requisitos de la POC que era su desarrollo en base a una Arquitectura Hexagonal y el uso de DDD. Todo esto sin olvidarnos del los principios de  API-First y las buenas practicas de desarrollo de Micro Servicios.
 
 Para  una  lograr una aproximación a una arquitectura Hexagonal he planteado de dentro a fuera las siguientes capas:
 
-![access-code-2](doc-resources/access-code-2.png)
+
 
 ### Dominio-Entidad
 
