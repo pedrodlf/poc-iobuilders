@@ -1,327 +1,363 @@
 swagger: '2.0'
+schemes:
+  - https
 info:
   description: This is a simple API
   version: 2.0.0
   title: IOBuilders
-  # put the contact info for your development or API team
   contact:
     email: pedrodlafuente@gmail.com
-
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+basePath: /v1
 
-# tags are used for organizing operations
 tags:
-- name: Users
-  description: Users domain  
-- name: Accounts
-  description: Accounts domain
-- name: Transactions
-  description: Transactions domain
-  
-basePath: '/v1'
+  - name: Users
+    description: Users domain
+  - name: Accounts
+    description: Accounts domain
+  - name: Transactions
+    description: Transactions domain
 paths:
-  '/users':
+  /users:
     post:
-      tags: 
+      tags:
         - Users
       summary: Create new user
       description: generate new user
-      parameters: 
-        - name: UserSingIn
-          in: body
+      parameters:
+        - in: body
+          name: UserSingIn
+          required: true
           schema:
             $ref: '#/definitions/UserRequest'
-          required: true  
       responses:
-        201:
+        '201':
           description: Created
           schema:
             $ref: '#/definitions/UserResponse'
-    
-  '/users/{userID}': 
+  '/users/{userID}':
     get:
-      tags: 
+      tags:
         - Users
-      summary: Get user info 
-      description: get user info 
-      parameters: 
-       - name: userID
-         in: path
-         type: string
-         format: uuid
-         required: true
+      summary: Get user info
+      description: get user info
+      parameters:
+        - name: userID
+          in: path
+          required: true
+          type: string
+          format: uuid
+          pattern: '\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b'
+          maxLength: 36
       responses:
-        200:
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/UserResponse'
-         
-
-  
-  '/accounts':
-   post:
-      tags: 
-        - Accounts
-      summary: New Account
-      description: Create a new account 
-      parameters:
-        - name: acountRequest
-          in: body
-          schema:
-            $ref: '#/definitions/AccountRequest'
-          required: true  
-      responses:
-        201:
-          description: Created
-          schema:
-            $ref: '#/definitions/AccountResponse'
-   
-   get:
-      tags: 
+  /accounts:
+    get:
+      tags:
         - Accounts
       summary: User Accounts
       description: Get User Account List find by User
       parameters:
         - name: userID
+          maxLength: 36
           in: query
+          required: true
           type: string
           format: uuid
-          required: true
+          pattern: '\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b'
       responses:
-        201:
+        '200':
           description: Created
           schema:
-            $ref: '#/definitions/Accounts'         
-    
-    
-  '/accounts/{accountID}': 
+            $ref: '#/definitions/Accounts'
+    post:
+      tags:
+        - Accounts
+      summary: New Account
+      description: Create a new account
+      parameters:
+        - in: body
+          name: acountRequest
+          required: true
+          schema:
+            $ref: '#/definitions/AccountRequest'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/AccountResponse'
+  '/accounts/{accountID}':
     get:
-      tags: 
+      tags:
         - Accounts
       summary: Account info
-      description: get Account info 
+      description: get Account info
       parameters:
-       - name: accountID
-         in: path
-         type: string
-         format: uuid
-         required: true
+        - name: accountID
+          in: path
+          required: true
+          type: string
+          format: uuid
+          pattern: '\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b'
+          maxLength: 36
       responses:
-        200:
+        '200':
           description: OK
           schema:
             $ref: '#/definitions/AccountResponse'
-    
     patch:
-      tags: 
+      tags:
         - Accounts
       summary: Set account Amount
       description: Set account Balance
       parameters:
         - name: accountID
           in: path
+          required: true
           type: string
           format: uuid
-          required: true  
+          pattern: '\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b'
+          maxLength: 36
         - name: amount
           in: query
-          type: number
           required: true
+          type: number
+          format: mumber
+          maximum: 90000000000000
+          minimum: 0
       responses:
-        200:
+        '200':
           description: UPDATED
           schema:
             $ref: '#/definitions/AccountResponse'
-  
-  '/transactions':   
-    post:
-      tags: 
-        - Transactions
-      summary: New Transaction
-      description: Create new Transaction 
-      parameters: 
-       - name: transactionRequest
-         in: body
-         schema:
-          $ref: '#/definitions/TransactionRequest'
-         required: true  
-      responses:
-        201:
-          description: OK
-          schema:
-            $ref: '#/definitions/TransactionResponse'
+  /transactions:
     get:
-      tags: 
+      tags:
         - Transactions
       summary: Account Transactions
       description: Get Transactions by account
-      parameters: 
-       - name: iban
-         in: query
-         type: string
-         required: true  
+      parameters:
+        - name: iban
+          in: query
+          required: true
+          type: string
+          pattern: >-
+            ([a-zA-Z]{2})\s*\t*(\d{2})\s*\t*(\d{4})\s*\t*(\d{4})\s*\t*(\d{2})\s*\t*(\d{10})
+          maxLength: 24
       responses:
-        200:
+        '200':
           description: OK
           schema:
-            $ref: '#/definitions/Transactions' 
-            
+            $ref: '#/definitions/Transactions'
+    post:
+      tags:
+        - Transactions
+      summary: New Transaction
+      description: Create new Transaction
+      parameters:
+        - in: body
+          name: transactionRequest
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionRequest'
+      responses:
+        '201':
+          description: OK
+          schema:
+            $ref: '#/definitions/TransactionResponse'
   '/transactions/{transactionID}':
     get:
-      tags: 
+      tags:
         - Transactions
       summary: Transaction info
       description: Get Transaction info by transactionID
       parameters:
         - name: transactionID
           in: path
+          required: true
           type: string
           format: uuid
-          required: true
+          pattern: '\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b'
+          maxLength: 36
       responses:
-        200:
+        '200':
           description: OK
           schema:
-            $ref: '#/definitions/TransactionResponse'    
-      
-   
-              
+            $ref: '#/definitions/TransactionResponse'
 definitions:
-
   UserRequest:
     type: object
     properties:
       name:
         type: string
-        example: "Name"
+        example: Name
+        pattern: '/^[a-z ,.''-]+$/i'
+        maxLength: 50
       surname:
         type: string
-        example: "Surname Name"
+        example: Surname Name
+        pattern: '/^[a-z ,.''-]+$/i'
+        maxLength: 50
       mail:
         type: string
-        example: "mail@mail.com"
+        example: mail@mail.com
+        maxLength: 50
+        pattern: >-
+          (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
       pass:
         type: string
+        example: cGFzc3dvcmQ=
         description: Base64 encode Password
-        example: "cGFzc3dvcmQ="
-  
-  
+        pattern: '^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$'
+        maxLength: 50
   UserResponse:
     type: object
     properties:
       userID:
         type: string
         format: uuid
-        example: "ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7"
+        example: ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7
+        pattern: '\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b'
+        maxLength: 36
       name:
         type: string
-        example: "Name"
+        example: Name
+        pattern: '/^[a-z ,.''-]+$/i'
+        maxLength: 50
       surname:
         type: string
-        example: "Surname Text"
+        example: Surname Text
+        pattern: '/^[a-z ,.''-]+$/i'
+        maxLength: 50
       mail:
         type: string
-        example: "mail@mail.com"
+        example: mail@mail.com
+        pattern: >-
+          (?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
       uri:
         type: string
-        example: "/users/ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7"  
-      
-  
+        example: /users/ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7
   Transactions:
     type: object
     properties:
       results:
         type: number
         example: 1
+        maximum: 900
+        minimum: 0
       transactions:
         type: array
         items:
           $ref: '#/definitions/TransactionResponse'
-        
-        
   TransactionRequest:
     type: object
     properties:
       amount:
         type: number
         example: 100.55
+        maximum: 90000000000000
+        minimum: 0
       beneficiaryIBAN:
         type: string
-        example: "ES9121000418450200051332"
+        example: ES9121000418450200051332
+        pattern: >-
+          ([a-zA-Z]{2})\s*\t*(\d{2})\s*\t*(\d{4})\s*\t*(\d{4})\s*\t*(\d{2})\s*\t*(\d{10})
+        maxLength: 24
       issuerIBAN:
         type: string
-        example: "ES7921000813610123456789" 
-  
-  
+        example: ES7921000813610123456789
+        pattern: >-
+          ([a-zA-Z]{2})\s*\t*(\d{2})\s*\t*(\d{4})\s*\t*(\d{4})\s*\t*(\d{2})\s*\t*(\d{10})
+        maxLength: 24
   TransactionResponse:
     type: object
     properties:
       transactionID:
         type: string
         format: uuid
-        example: "ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7"
+        example: ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7
       uri:
         type: string
-        example: "/transactions/eda91322-4924-11ec-81d3-0242ac130003"
+        example: /transactions/eda91322-4924-11ec-81d3-0242ac130003
       amount:
         type: number
         example: 100.55
       beneficiaryIBAN:
         type: string
-        example: "ES9121000418450200051332"
+        example: ES9121000418450200051332
+        pattern: >-
+          ([a-zA-Z]{2})\s*\t*(\d{2})\s*\t*(\d{4})\s*\t*(\d{4})\s*\t*(\d{2})\s*\t*(\d{10})
+        maxLength: 24
       issuerIBAN:
         type: string
-        example: "ES7921000813610123456789"
+        example: ES7921000813610123456789
+        pattern: >-
+          ([a-zA-Z]{2})\s*\t*(\d{2})\s*\t*(\d{4})\s*\t*(\d{4})\s*\t*(\d{2})\s*\t*(\d{10})
+        maxLength: 24
       date:
         type: string
-        format: date-time  
-  
+        format: date-time
   AccountRequest:
     type: object
     properties:
       userID:
         type: string
         format: uuid
-        
+        pattern: '\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b'
+        maxLength: 36
   AccountResponse:
     type: object
     properties:
       accountID:
         type: string
         format: uuid
-        example: "d8a1e7b6-655b-4f0a-9c30-039cd84c2eb5"
+        example: d8a1e7b6-655b-4f0a-9c30-039cd84c2eb5
+        pattern: '\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b'
+        maxLength: 36
       iban:
         type: string
-        example: "ES9121000418450200051332"
+        example: ES9121000418450200051332
+        pattern: >-
+          ([a-zA-Z]{2})\s*\t*(\d{2})\s*\t*(\d{4})\s*\t*(\d{4})\s*\t*(\d{2})\s*\t*(\d{10})
+        maxLength: 24
       uri:
         type: string
-        example: "/accounts/d8a1e7b6-655b-4f0a-9c30-039cd84c2eb5"
+        example: /accounts/d8a1e7b6-655b-4f0a-9c30-039cd84c2eb5
       owner:
-       type : string
-       example: "/users/ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7"  
+        type: string
+        example: /users/ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7
       amount:
-       type: number
-       example: 1500.20
-  
+        type: number
+        example: 1500.2
+        maximum: 90000000000000
+        minimum: 0
   Accounts:
     type: object
     properties:
       results:
         type: number
         example: 1
+        maximum: 900
+        minimum: 0
       accounts:
         type: array
         items:
           $ref: '#/definitions/AccountResponse'
-          
   errorResponse:
     type: object
     properties:
       message:
         type: string
+        pattern: '/^[a-z ,.''-]+$/i'
+        maxLength: 500
       status:
         type: number
+        maximum: 599
+        minimum: 100
       timestamp:
         type: string
