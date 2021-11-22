@@ -40,6 +40,8 @@
       - [spring-boot-starter-actuator](#spring-boot-starter-actuator)
       - [org.iban4j](#orgiban4j)
     - [Build](#build)
+  - [TODO](#todo)
+    - [Seguridad](#seguridad)
  <!-- /code_chunk_output -->
 
 ## Control de cambios
@@ -251,7 +253,16 @@ public class TransactionAdapter {
 
 ### Test Unitarios
 
+Los test unitarios que se han realizado dan covertura solo el dominio de **User**, aunque soy conciente que no es lo correcto , entiendo que dan una visión del uso de los mismos.  
+
 ### Test Aceptación
+
+Para simular los test de acceptación he se ha creado una [coleción](https://github.com/pedrodlf/poc-iobuilders/blob/main/src/test/java/resources/iobuilders.postman_collection.json) de Postman que junto con el [enviromen](https://github.com/pedrodlf/poc-iobuilders/blob/main/src/test/java/resources/iobuilders.postman_environment.json) permite lanzar un flujo completo de pruebas.
+Una vez instalada la coleción en Postman y selecionadas las variables de entorno facilitadas, selecionaremos la opción de **RUN COLLECTION** en Postman para obtener  un resultado como el siguiente:
+
+![TEST](doc-resources/test.PNG)
+
+>Se podria profundizar mas en los tipos de respuesta no obstante, dado el alcance de la prueba he estimado que estos ya  ofrecen una visión general de la funcionalidad del servicio.
 
 ## Contrato-API REST
 
@@ -525,3 +536,9 @@ Esta build de maven es la que nos permite realizar la generación automática de
   </pluginManagement>
  </build>
 ````
+
+## TODO
+
+### Seguridad
+
+Para definir correctamente la seguridad del proyecto sería necesario analizar los posibles clientes del API y el ecosistema en el que estaria desplegada. Hoy en dia existen diferentes soluciones teniendo en cuenta estas dos variables. Desde mi punto de vista la implementación de Oauth es un tema que hay que analizar minuciosamente. Si surgen dudas a este respecto podemos comentarlo en una sessión o puedo ampliar la documentación con diferentes supuestos.
