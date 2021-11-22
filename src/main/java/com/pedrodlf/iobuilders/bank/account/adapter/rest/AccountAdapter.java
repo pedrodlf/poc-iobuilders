@@ -39,7 +39,7 @@ public class AccountAdapter {
 	}
 	
 	public AccountResponse subtractAmount(UUID accountID, BigDecimal amount) {
-		return accountService.addAmount(accountID, amount);
+		return accountService.subtractAmount(accountID, amount);
 	}
 	
 	public Optional<Account> getOptionalAccountByIBAN(String iban) {

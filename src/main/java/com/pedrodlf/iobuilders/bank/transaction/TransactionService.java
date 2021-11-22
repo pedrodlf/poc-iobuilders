@@ -48,15 +48,13 @@ public class TransactionService {
 		// Vadidacion de Cuentas
 		Account issuer = accountAdapter.getOptionalAccountByIBAN(transactionRequest.getIssuerIBAN()).orElseThrow(AccountNotFoundException::new);
 		Account beneficiary = accountAdapter.getOptionalAccountByIBAN(transactionRequest.getBeneficiaryIBAN()).orElseThrow(BeneficiaryAccountNotFoundException::new);
-		
-		Transaction transaction = transactionRequestToTransactionConverter.convert(transactionRequest);
 		//Validación de disposición de efectivo
-		if(issuer.getAmount().compareTo(transactionRequest.getAmount())<0) throw new NoEnoughFundsException("La cuenta: "+ issuer.toString() +", no dispone de Fondos Suficientes");
+		if(issuer.getAmount().compareTo(transactionRequest.getAmount())<=0) throw new NoEnoughFundsException("La cuenta: "+ issuer.toString() +", no dispone de Fondos Suficientes");
 		//Modificación de Saldos
 		accountAdapter.subtractAmount(issuer.getId(), transactionRequest.getAmount());
 		accountAdapter.addAmount(beneficiary.getId(), transactionRequest.getAmount());
 		//Persistir transacción
-		final Transaction savedTransaction = transactionRepository.save(transaction);
+		final Transaction savedTransaction = transactionRepository.save(transactionRequestToTransactionConverter.convert(transactionRequest));
 		return transactionToTransactionResponseConverter.convert(savedTransaction);
 	}
 

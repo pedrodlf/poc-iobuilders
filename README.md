@@ -7,10 +7,6 @@
   - [Necesidades](#necesidades)
   - [Descripción](#descripción)
   - [Instalación](#instalación)
-  - [Contrato-API REST](#contrato-api-rest)
-    - [Users API](#users-api)
-    - [Accounts API](#accounts-api)
-    - [Transactions API](#transactions-api)
   - [Desarrollo](#desarrollo)
     - [Dominio-Entidad](#dominio-entidad)
       - [User](#user)
@@ -24,6 +20,13 @@
       - [User Rest Adapter](#user-rest-adapter)
       - [Account Rest Adapter](#account-rest-adapter)
       - [TransactionRest Adapter](#transactionrest-adapter)
+  - [Testing](#testing)
+    - [Test Unitarios](#test-unitarios)
+    - [Test Aceptación](#test-aceptación)
+  - [Contrato-API REST](#contrato-api-rest)
+    - [Users API](#users-api)
+    - [Accounts API](#accounts-api)
+    - [Transactions API](#transactions-api)
   - [Gestor de Dependencias](#gestor-de-dependencias)
     - [Artefacto](#artefacto)
     - [Propiedades](#propiedades)
@@ -73,24 +76,6 @@ Para ejecutar el proyecto con el terminal en la raiz del mismo, lanzaremos el si
 > mvn clean install spring-boot:run
 
 Hecho esto, el swagger del proyecto debería ser accesible vía navegador en <http://localhost:8080/swagger-ui.html#/>
-
-## Contrato-API REST
-
-Para la capa REST he definido un Swagger2.0 que contiene los tres [contratos](https://github.com/pedrodlf/poc-iobuilders/blob/main/src/main/resources/generador_1.0.1.yaml), para su validación he empleado [herramientas](https://42crunch.com/) de control de calidad de APIs basadas en la normativa definida por  *OWASP Top 10 for API Security*. Con el siguiente resultado:
-
-![Security Audit](doc-resources/SecurityAudit.PNG)
-
-### Users API
-
-![Security Audit](doc-resources/UsersAPI.PNG)
-
-### Accounts API
-
-![Security Audit](doc-resources/AccountsAPI.PNG)
-
-### Transactions API
-
-![Security Audit](doc-resources/TransactionsAPI.PNG)
 
 ## Desarrollo
 
@@ -261,6 +246,30 @@ public class TransactionAdapter {
 
 }
 ````
+
+## Testing
+
+### Test Unitarios
+
+### Test Aceptación
+
+## Contrato-API REST
+
+Para la capa REST he definido un Swagger2.0 que contiene los tres [contratos](https://github.com/pedrodlf/poc-iobuilders/blob/main/src/main/resources/generador_1.0.1.yaml), para su validación he empleado [herramientas](https://42crunch.com/) de control de calidad de APIs basadas en la normativa definida por  *OWASP Top 10 for API Security*. Con el siguiente resultado:
+
+![Security Audit](doc-resources/SecurityAudit.PNG)
+
+### Users API
+
+![Security Audit](doc-resources/UsersAPI.PNG)
+
+### Accounts API
+
+![Security Audit](doc-resources/AccountsAPI.PNG)
+
+### Transactions API
+
+![Security Audit](doc-resources/TransactionsAPI.PNG)
 
 ## Gestor de Dependencias
 
