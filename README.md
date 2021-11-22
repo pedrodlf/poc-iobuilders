@@ -16,13 +16,17 @@
       - [h2](#h2)
       - [spring-boot-starter-test](#spring-boot-starter-test)
       - [springfox-swagger2](#springfox-swagger2)
+      - [springfox-swagger-ui](#springfox-swagger-ui)
+      - [spring-boot-starter-actuator](#spring-boot-starter-actuator)
+      - [org.iban4j](#orgiban4j)
+    - [Build](#build)
  <!-- /code_chunk_output -->
 
 ## Control de cambios
 
-| Fecha | Versión | Estado | Modificado
-| :------------- | :------------- | :------------- | :------------- |
-| 22/11/2021 | 1.0.1 | OK | pedrodlafuente@gmail.com
+| Fecha      | Versión | Estado | Modificado               |
+| :--------- | :------ | :----- | :----------------------- |
+| 22/11/2021 | 1.0.1   | OK     | pedrodlafuente@gmail.com |
 
 ## Necesidades
 
@@ -156,4 +160,153 @@ Produce la documentación de la API Swagger 2.0 que podemos ver en <http://local
  <artifactId>springfox-swagger2</artifactId>
  <version>${springfox-version}</version>
 </dependency>
+````
+
+#### springfox-swagger-ui
+
+Crea un webjar que contiene el contenido estático de swagger-ui. Agrega un punto final JSON /swagger-resourcesque enumera todos los recursos y versiones de swagger configurados para una aplicación determinada. La página de la interfaz de usuario de Swagger debería estar disponible en  <http://localhost:8080/swagger-ui.html#/>
+
+```` xml
+<dependency>
+ <groupId>io.springfox</groupId>
+ <artifactId>springfox-swagger-ui</artifactId>
+ <version>${springfox-version}</version>
+</dependency>
+````
+
+#### spring-boot-starter-actuator
+
+Nos ayudara a monitorizar y gestionar nuestra aplicación. Podemos usar tanto HTTP como JMX para gestionar y monitorizar la aplicación.
+Simplemente añadiendo el starter que nos ofrece Spring Boot tendremos una serie de características en nuestra aplicación sobre su ejecución.
+
+```` xml
+<dependency>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+````
+
+#### org.iban4j
+
+Nos permite generar IBAN Randomizados pero que cumples con los estandares españoles para la POC.
+
+```` xml
+<dependency>
+ <groupId>org.iban4j</groupId>
+ <artifactId>iban4j</artifactId>
+ <version>3.2.3-RELEASE</version>
+</dependency>
+````
+
+### Build
+
+Esta build de  maven es la que nos permite realizar la generación automática de los Contratos de los controladores y los DTO a partir de la definicion en **Swagger2.0**. Es por eso que al menos la primera vez que se ejecute el proyecto es imprescindible su construcción con **Maven**. En mi caso he tenido que configurar el plugin de eclipse para que funcione correctamente.
+
+```` xml
+<build>
+  <sourceDirectory>src/main/java</sourceDirectory>
+  <resources>
+   <resource>
+    <directory>${project.build.sourceDirectory}/../resources</directory>
+   </resource>
+   <resource>
+    <directory>${project.build.directory}/generated-sources/swagger/src/main/resources</directory>
+   </resource>
+  </resources>
+  <plugins>
+
+   <plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <executions>
+     <execution>
+      <goals>
+       <goal>repackage</goal>
+      </goals>
+     </execution>
+    </executions>
+   </plugin>
+   <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+   </plugin>
+   <plugin>
+    <groupId>io.swagger</groupId>
+    <artifactId>swagger-codegen-maven-plugin</artifactId>
+    <version>2.2.3</version>
+    <executions>
+     <execution>
+      <id>generate-spring-mvc</id>
+      <goals>
+       <goal>generate</goal>
+      </goals>
+      <configuration>
+
+       <inputSpec>${project.build.sourceDirectory}/../resources/generador_${api.version}.yaml</inputSpec>
+       <language>spring</language>
+       <modelPackage>com.pedrodlf.iobuilders.model</modelPackage>
+       <apiPackage>com.pedrodlf.iobuilders.api</apiPackage>
+       <configOptions>
+        <interfaceOnly>true</interfaceOnly>
+        <dateLibrary>java.util.Date</dateLibrary>
+
+       </configOptions>
+      </configuration>
+     </execution>
+    </executions>
+   </plugin>
+   <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>build-helper-maven-plugin</artifactId>
+    <executions>
+     <execution>
+      <id>add-source</id>
+      <phase>generate-sources</phase>
+      <goals>
+       <goal>add-source</goal>
+      </goals>
+      <configuration>
+       <sources>
+        <source>target/generated-sources/swagger/src/main/java/</source>
+       </sources>
+      </configuration>
+     </execution>
+    </executions>
+   </plugin>
+  </plugins>
+  <pluginManagement>
+   <plugins>
+    <!--This plugin's configuration is used to store Eclipse m2e settings
+					only. It has no influence on the Maven build itself. -->
+    <plugin>
+     <groupId>org.eclipse.m2e</groupId>
+     <artifactId>lifecycle-mapping</artifactId>
+     <version>1.0.0</version>
+     <configuration>
+      <lifecycleMappingMetadata>
+       <pluginExecutions>
+        <pluginExecution>
+         <pluginExecutionFilter>
+          <groupId>io.swagger</groupId>
+          <artifactId>
+           swagger-codegen-maven-plugin
+          </artifactId>
+          <versionRange>
+           [2.2.3,)
+          </versionRange>
+          <goals>
+           <goal>generate</goal>
+          </goals>
+         </pluginExecutionFilter>
+         <action>
+          <ignore></ignore>
+         </action>
+        </pluginExecution>
+       </pluginExecutions>
+      </lifecycleMappingMetadata>
+     </configuration>
+    </plugin>
+   </plugins>
+  </pluginManagement>
+ </build>
 ````
