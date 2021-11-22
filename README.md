@@ -13,6 +13,9 @@
     - [Dependencias](#dependencias)
       - [spring-boot-starter-web](#spring-boot-starter-web)
       - [spring-boot-starter-data-jpa](#spring-boot-starter-data-jpa)
+      - [h2](#h2)
+      - [spring-boot-starter-test](#spring-boot-starter-test)
+      - [springfox-swagger2](#springfox-swagger2)
  <!-- /code_chunk_output -->
 
 ## Control de cambios
@@ -47,6 +50,8 @@ El proyecto esta pensado para ser ejecutado con un build de **Maven** , contiene
 Para ejecutar el proyecto, con el terminal en la raiz del mismo lanzaremos el siguiente comando:
 
 > mvn clean install spring-boot:run
+
+Hecho esto el swagger del proyecto deberia ser accesible via navegador en <http://localhost:8080/swagger-ui.html#/>
 
 ## Gestor de Dependencias
 
@@ -107,5 +112,48 @@ características principales de Spring Data JPA que son las siguientes:
 <dependency>
  <groupId>org.springframework.boot</groupId>
  <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+````
+
+#### h2
+
+Las principales características de H2 son:
+
+- API JDBC de código abierto.
+- Modos integrados y de servidor; Bases de datos en disco o en memoria.
+- Bases de datos encriptadas.
+- Búsqueda de texto completo.
+- Java con tamaño reducido: alrededor de 2,5 MB de tamaño de archivo jar.
+- Controlador ODBC.
+
+```` xml
+<dependency>
+ <groupId>com.h2database</groupId>
+ <artifactId>h2</artifactId>
+ <scope>runtime</scope>
+</dependency>
+````
+
+#### spring-boot-starter-test
+
+Contiene la mayoria de los elementos necesarios para la realización del testing. El tag **<scope> test </scope>** permite ignorar todas las dependecias declaradas con el *scope test* cuando el servicio se empaqueta para el despliegue.
+
+```` xml
+<dependency>
+ <groupId>org.springframework.boot</groupId>
+ <artifactId>spring-boot-starter-test</artifactId>
+ <scope>test</scope>
+</dependency>
+````
+
+#### springfox-swagger2
+
+Produce la documentación de la API Swagger 2.0 que podemos ver en <http://localhost:8080/swagger-ui.html#/> cuando el proyecto está en ejecución.
+
+```` xml
+<dependency>
+ <groupId>io.springfox</groupId>
+ <artifactId>springfox-swagger2</artifactId>
+ <version>${springfox-version}</version>
 </dependency>
 ````
