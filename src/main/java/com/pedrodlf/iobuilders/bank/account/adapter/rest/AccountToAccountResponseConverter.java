@@ -1,7 +1,5 @@
 package com.pedrodlf.iobuilders.bank.account.adapter.rest;
 
-import java.math.BigDecimal;
-
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 

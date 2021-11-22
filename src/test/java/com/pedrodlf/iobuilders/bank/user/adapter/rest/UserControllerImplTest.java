@@ -1,10 +1,14 @@
 package com.pedrodlf.iobuilders.bank.user.adapter.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pedrodlf.iobuilders.api.UsersApi;
-import com.pedrodlf.iobuilders.bank.user.UserAdapter;
-import com.pedrodlf.iobuilders.model.UserRequest;
-import com.pedrodlf.iobuilders.model.UserResponse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.UUID;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +19,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pedrodlf.iobuilders.bank.user.UserAdapter;
+import com.pedrodlf.iobuilders.model.UserRequest;
+import com.pedrodlf.iobuilders.model.UserResponse;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserControllerImpl.class)

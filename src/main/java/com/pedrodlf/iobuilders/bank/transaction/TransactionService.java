@@ -1,28 +1,23 @@
 package com.pedrodlf.iobuilders.bank.transaction;
 
+import java.util.List;
+import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
 import com.pedrodlf.iobuilders.bank.account.Account;
 import com.pedrodlf.iobuilders.bank.account.AccountAdapter;
-import com.pedrodlf.iobuilders.bank.account.adapter.rest.AccountExcepetionHandler;
 import com.pedrodlf.iobuilders.bank.account.exception.AccountNotFoundException;
 import com.pedrodlf.iobuilders.bank.account.exception.BeneficiaryAccountNotFoundException;
 import com.pedrodlf.iobuilders.bank.transaction.adapter.rest.TransactionListToTransactionsConverter;
 import com.pedrodlf.iobuilders.bank.transaction.adapter.rest.TransactionRequestToTransactionConverter;
 import com.pedrodlf.iobuilders.bank.transaction.adapter.rest.TransactionToTransactionResponseConverter;
 import com.pedrodlf.iobuilders.bank.transaction.exception.NoEnoughFundsException;
-import com.pedrodlf.iobuilders.model.AccountResponse;
 import com.pedrodlf.iobuilders.model.TransactionRequest;
 import com.pedrodlf.iobuilders.model.TransactionResponse;
 import com.pedrodlf.iobuilders.model.Transactions;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
