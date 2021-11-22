@@ -1,7 +1,6 @@
 package com.pedrodlf.iobuilders.bank.transaction.adapter.rest;
 
 import com.pedrodlf.iobuilders.api.TransactionsApi;
-import com.pedrodlf.iobuilders.bank.transaction.TransactionAdapter;
 import com.pedrodlf.iobuilders.model.TransactionRequest;
 import com.pedrodlf.iobuilders.model.TransactionResponse;
 import com.pedrodlf.iobuilders.model.Transactions;

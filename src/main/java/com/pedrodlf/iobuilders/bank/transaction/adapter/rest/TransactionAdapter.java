@@ -1,5 +1,6 @@
-package com.pedrodlf.iobuilders.bank.transaction;
+package com.pedrodlf.iobuilders.bank.transaction.adapter.rest;
 
+import com.pedrodlf.iobuilders.bank.transaction.TransactionService;
 import com.pedrodlf.iobuilders.model.TransactionRequest;
 import com.pedrodlf.iobuilders.model.TransactionResponse;
 import com.pedrodlf.iobuilders.model.Transactions;

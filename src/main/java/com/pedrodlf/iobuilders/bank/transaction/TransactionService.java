@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.pedrodlf.iobuilders.bank.account.Account;
-import com.pedrodlf.iobuilders.bank.account.AccountAdapter;
+import com.pedrodlf.iobuilders.bank.account.adapter.rest.AccountAdapter;
 import com.pedrodlf.iobuilders.bank.account.exception.AccountNotFoundException;
 import com.pedrodlf.iobuilders.bank.account.exception.BeneficiaryAccountNotFoundException;
 import com.pedrodlf.iobuilders.bank.transaction.adapter.rest.TransactionListToTransactionsConverter;

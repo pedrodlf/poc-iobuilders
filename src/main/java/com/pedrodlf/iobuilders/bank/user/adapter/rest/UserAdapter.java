@@ -1,9 +1,10 @@
-package com.pedrodlf.iobuilders.bank.user;
+package com.pedrodlf.iobuilders.bank.user.adapter.rest;
 
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
+import com.pedrodlf.iobuilders.bank.user.UserService;
 import com.pedrodlf.iobuilders.model.UserRequest;
 import com.pedrodlf.iobuilders.model.UserResponse;
 

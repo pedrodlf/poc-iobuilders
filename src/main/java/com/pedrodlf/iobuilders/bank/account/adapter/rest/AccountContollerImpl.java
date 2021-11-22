@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pedrodlf.iobuilders.api.AccountsApi;
-import com.pedrodlf.iobuilders.bank.account.AccountAdapter;
 import com.pedrodlf.iobuilders.model.AccountRequest;
 import com.pedrodlf.iobuilders.model.AccountResponse;
 import com.pedrodlf.iobuilders.model.Accounts;

@@ -1,4 +1,4 @@
-package com.pedrodlf.iobuilders.bank.account;
+package com.pedrodlf.iobuilders.bank.account.adapter.rest;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
+import com.pedrodlf.iobuilders.bank.account.Account;
+import com.pedrodlf.iobuilders.bank.account.AccountService;
 import com.pedrodlf.iobuilders.model.AccountRequest;
 import com.pedrodlf.iobuilders.model.AccountResponse;
 import com.pedrodlf.iobuilders.model.Accounts;

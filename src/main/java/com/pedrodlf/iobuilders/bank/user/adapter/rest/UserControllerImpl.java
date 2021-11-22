@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pedrodlf.iobuilders.api.UsersApi;
-import com.pedrodlf.iobuilders.bank.user.UserAdapter;
 import com.pedrodlf.iobuilders.model.UserRequest;
 import com.pedrodlf.iobuilders.model.UserResponse;
 

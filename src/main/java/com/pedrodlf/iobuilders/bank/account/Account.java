@@ -17,13 +17,10 @@ public class Account {
 	@Id
     @Column(name = "id")
     private UUID id;
-	
-    @Column(name = "userId")
+	@Column(name = "userId")
     private UUID userID;
-    
     @Column(name = "amount")
     private BigDecimal amount;
-    
     @Column (name = "iban",unique=true)
     private String iban;
 

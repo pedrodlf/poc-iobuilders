@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.pedrodlf.iobuilders.bank.user.adapter.rest.UserAdapter;
 import com.pedrodlf.iobuilders.model.UserRequest;
 import com.pedrodlf.iobuilders.model.UserResponse;
 

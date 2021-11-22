@@ -14,6 +14,12 @@
       - [Transaction](#transaction)
     - [Servicio-Lógica de Negocio](#servicio-lógica-de-negocio)
       - [UserService](#userservice)
+      - [Account Service](#account-service)
+      - [Transaction Service](#transaction-service)
+    - [Adapter Rest](#adapter-rest)
+      - [User Rest Adapter](#user-rest-adapter)
+      - [Account Rest Adapter](#account-rest-adapter)
+      - [TransactionRest Adapter](#transactionrest-adapter)
   - [Gestor de Dependencias](#gestor-de-dependencias)
     - [Artefacto](#artefacto)
     - [Propiedades](#propiedades)
@@ -134,6 +140,102 @@ public class UserService {
     public UserResponse getUserById(UUID userId){}
     
     public boolean isPresent(UUID userId) {}
+
+}
+````
+
+#### Account Service
+
+```` java
+@Service
+public class AccountService {
+
+ public AccountResponse createAccount(AccountRequest accountRequest) {}
+ 
+ public AccountResponse addAmount(UUID accountID, BigDecimal amount){}
+
+ public AccountResponse subtractAmount(UUID accountID, BigDecimal amount){}
+ 
+ public Accounts getAccountsByUser(UUID userID) {}
+ 
+ public AccountResponse getAccount(UUID accountID) {}
+
+ public Optional<Account> getOptionalAccountByIBAN(String iban) {}
+ 
+}
+````
+
+#### Transaction Service
+
+```` java
+@Service
+public class TransactionService {
+
+ public TransactionResponse createTransaction(TransactionRequest transactionRequest) {}
+
+ public TransactionResponse getTransactionById(UUID transactionId) {}
+
+ public Transactions getTransactionsByAccount(String iban) {}
+
+ private List<Transaction> transactionListParser(List<Transaction> list, String Iban) {}
+ 
+}
+````
+
+### Adapter Rest
+
+#### User Rest Adapter
+
+```` java
+@Component
+public class UserAdapter {
+
+    private UserService userService;
+
+    public UserAdapter(UserService userService){}
+
+    public UserResponse createUser(UserRequest userRequest){}
+
+    public UserResponse getUserById(UUID userId){}
+    
+}
+````
+
+#### Account Rest Adapter
+
+```` java
+@Component
+public class AccountAdapter {
+
+ 
+ public AccountResponse getAccountByID(UUID accountID) {}
+ 
+ public AccountResponse createAccount(AccountRequest acountRequest) {}
+ 
+ public Accounts getAccountsByUser(UUID userID) {}
+ 
+ public AccountResponse addAmount(UUID accountID, BigDecimal amount) {}
+ 
+ public AccountResponse subtractAmount(UUID accountID, BigDecimal amount) {}
+ 
+ public Optional<Account> getOptionalAccountByIBAN(String iban) {}
+
+}
+````
+
+#### TransactionRest Adapter
+
+```` java
+@Component
+public class TransactionAdapter {
+    
+    public TransactionAdapter(TransactionService transactionService){}
+
+    public TransactionResponse createTransaction(TransactionRequest transactionRequest){}
+
+    public TransactionResponse getTransactionById(UUID transactionId){}
+
+    public Transactions getTransactionsByAccount(String iban){}
 
 }
 ````

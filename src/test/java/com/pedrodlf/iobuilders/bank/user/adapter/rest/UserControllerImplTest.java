@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pedrodlf.iobuilders.bank.user.UserAdapter;
 import com.pedrodlf.iobuilders.model.UserRequest;
 import com.pedrodlf.iobuilders.model.UserResponse;
 

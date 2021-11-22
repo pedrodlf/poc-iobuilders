@@ -11,7 +11,7 @@ import com.pedrodlf.iobuilders.bank.account.adapter.rest.AccountListToAccountsCo
 import com.pedrodlf.iobuilders.bank.account.adapter.rest.AccountRequestToAccountConverter;
 import com.pedrodlf.iobuilders.bank.account.adapter.rest.AccountToAccountResponseConverter;
 import com.pedrodlf.iobuilders.bank.account.exception.AccountNotFoundException;
-import com.pedrodlf.iobuilders.bank.user.UserAdapter;
+import com.pedrodlf.iobuilders.bank.user.adapter.rest.UserAdapter;
 import com.pedrodlf.iobuilders.bank.user.exception.UserNotFoundException;
 import com.pedrodlf.iobuilders.model.AccountRequest;
 import com.pedrodlf.iobuilders.model.AccountResponse;
