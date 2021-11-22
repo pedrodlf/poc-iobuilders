@@ -76,6 +76,8 @@ El proyecto esta pensado para exponer los servicios via REST. No obstante el pla
 
 Para  una  lograr una aproximación a una arquitectura Hexagonal he planteado de dentro a fuera las siguientes capas:
 
+![access-code-2](doc-resources/access-code-2.png)
+
 ### Dominio-Entidad
 
 Se plantean tres Entidades :
