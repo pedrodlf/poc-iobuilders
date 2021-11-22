@@ -18,7 +18,7 @@ public class User {
     private String name;
     @Column(name ="surname")
     private String surname;
-    @Column(name = "mail")
+    @Column(name = "mail",unique=true)
     private String mail;
     @Column(name = "pass")
     private String pass;

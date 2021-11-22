@@ -57,8 +57,8 @@ API Rest para simular un pequeño banco:
 
 Puntos a destacar:
 
-- Arquitectura hexagonal y testing (Obligatorio)
-- Libertad en el stack usado en la prueba, aunque preferiblemente algún lenguaje de la JVM, Java, Groovy o  haciendo uso de Spring, Micronaut o Quarkus.
+- Arquitectura Hexagonal y testing (Obligatorio).
+- Libertad en el stack usado en la prueba, aunque preferiblemente algún lenguaje de la JVM, Java, Groovy o haciendo uso de Spring, Micronaut o Quarkus.
 
 ## Descripción
 
@@ -66,13 +66,13 @@ Finalmente he optado por un micro con **Spring-boot** por afinidad con el framew
 
 ## Instalación
 
-El proyecto esta pensado para ser ejecutado con un build de **Maven** , contiene usa serie de depencias (Explicadas en los siguientes puntos) que hacen imprencindible el uso de ciertos plugins.
+El proyecto está pensado para ser ejecutado con un build de **Maven**, contiene una serie de depencias (explicadas en los siguientes puntos) que hacen imprescindible el uso de ciertos plugins.
 
-Para ejecutar el proyecto, con el terminal en la raiz del mismo lanzaremos el siguiente comando:
+Para ejecutar el proyecto con el terminal en la raiz del mismo, lanzaremos el siguiente comando:
 
 > mvn clean install spring-boot:run
 
-Hecho esto el swagger del proyecto deberia ser accesible via navegador en <http://localhost:8080/swagger-ui.html#/>
+Hecho esto, el swagger del proyecto debería ser accesible vía navegador en <http://localhost:8080/swagger-ui.html#/>
 
 ## Contrato-API REST
 
@@ -94,9 +94,9 @@ Para la capa REST he definido un Swagger2.0 que contiene los tres [contratos](ht
 
 ## Desarrollo
 
-El proyecto esta pensado para exponer los servicios via REST. No obstante el plantamiento de la aplicación en cuanto a su desarrollo, esta desarrollado para poder añadir otros adaptadores si fuera necesario. Este desacoplamiento entre servicios de dominio viene dado por uno de los requisitos de la POC que era su desarrollo en base a una Arquitectura Hexagonal y el uso de DDD. Todo esto sin olvidarnos del los principios de  API-First y las buenas practicas de desarrollo de Micro Servicios.
+El proyecto está pensado para exponer los servicios via REST. No obstante, el planteamiento de la aplicación en cuanto a su construcción, está desarrollado para poder añadir otros adaptadores si fuera necesario. Este desacoplamiento entre servicios de dominio viene dado por uno de los requisitos de la POC que era su desarrollo en base a una Arquitectura Hexagonal y el uso de DDD. Todo esto sin olvidarnos de los principios de API-First y las buenas prácticas de desarrollo de Micro Servicios.
 
-Para  una  lograr una aproximación a una arquitectura Hexagonal he planteado de dentro a fuera las siguientes capas:
+Para lograr una aproximación a una arquitectura Hexagonal, he planteado de dentro a fuera las siguientes capas:
 
 ### Dominio-Entidad
 
@@ -290,7 +290,7 @@ El gestor de dependecias usado es **Maven** , con la siguiente configuración:
 
 ### Dependencias
 
-las principales depencias son las siguientes:
+Las principales dependencias son las siguientes:
 
 #### spring-boot-starter-web
 
@@ -311,10 +311,10 @@ org.springframework: spring-webmvc
 
 #### spring-boot-starter-data-jpa
 
-características principales de Spring Data JPA que son las siguientes:
+Características principales de Spring Data JPA que son las siguientes:
 
-- **Repositorio sin código**: Nos permite implementar nuestro código comercial en un nivel de abstracción superior.
-- **Código repetitivo reducido**: proporciona la implementación predeterminada para cada método mediante sus interfaces de repositorio, no es necesario implementar operaciones de lectura y escritura.
+- **Repositorio sin código**: nos permite implementar nuestro código comercial en un nivel de abstracción superior.
+- **Código repetitivo reducido**: proporciona la implementación predeterminada para cada método mediante sus interfaces de repositorio; no es necesario implementar operaciones de lectura y escritura.
 - **Consultas generadas**: otra característica de Spring Data JPA es la generación de consultas de base de datos basadas en el nombre del método.
 
 ```` xml
@@ -329,7 +329,8 @@ características principales de Spring Data JPA que son las siguientes:
 Las principales características de H2 son:
 
 - API JDBC de código abierto.
-- Modos integrados y de servidor; Bases de datos en disco o en memoria.
+- Modo integrado.
+- Bases de datos en disco o en memoria.
 - Bases de datos encriptadas.
 - Búsqueda de texto completo.
 - Java con tamaño reducido: alrededor de 2,5 MB de tamaño de archivo jar.
@@ -345,7 +346,7 @@ Las principales características de H2 son:
 
 #### spring-boot-starter-test
 
-Contiene la mayoria de los elementos necesarios para la realización del testing. El tag **<scope> test </scope>** permite ignorar todas las dependecias declaradas con el *scope test* cuando el servicio se empaqueta para el despliegue.
+Contiene la mayoría de los elementos necesarios para la realización del testing. El tag **<scope> test </scope>** permite ignorar todas las dependecias declaradas con el *scope test* cuando el servicio se empaqueta para el despliegue.
 
 ```` xml
 <dependency>
@@ -369,7 +370,7 @@ Produce la documentación de la API Swagger 2.0 que podemos ver en <http://local
 
 #### springfox-swagger-ui
 
-Crea un webjar que contiene el contenido estático de swagger-ui. Agrega un punto final JSON /swagger-resourcesque enumera todos los recursos y versiones de swagger configurados para una aplicación determinada. La página de la interfaz de usuario de Swagger debería estar disponible en  <http://localhost:8080/swagger-ui.html#/>
+Crea un webjar que contiene el contenido estático de swagger-ui. Agrega un punto final JSON /swagger-resourcesque, enumera todos los recursos y versiones de swagger configurados para una aplicación determinada. La página de la interfaz de usuario de Swagger debería estar disponible en  <http://localhost:8080/swagger-ui.html#/>
 
 ```` xml
 <dependency>
@@ -381,7 +382,7 @@ Crea un webjar que contiene el contenido estático de swagger-ui. Agrega un punt
 
 #### spring-boot-starter-actuator
 
-Nos ayudara a monitorizar y gestionar nuestra aplicación. Podemos usar tanto HTTP como JMX para gestionar y monitorizar la aplicación.
+Nos ayudará a monitorizar y gestionar nuestra aplicación. Podemos usar tanto HTTP como JMX para gestionar y monitorizar la aplicación.
 Simplemente añadiendo el starter que nos ofrece Spring Boot tendremos una serie de características en nuestra aplicación sobre su ejecución.
 
 ```` xml
@@ -393,7 +394,7 @@ Simplemente añadiendo el starter que nos ofrece Spring Boot tendremos una serie
 
 #### org.iban4j
 
-Nos permite generar IBAN Randomizados pero que cumples con los estandares españoles para la POC.
+Nos permite generar IBAN Randomizados pero que cumples con los estándares españoles para la POC.
 
 ```` xml
 <dependency>
@@ -405,7 +406,7 @@ Nos permite generar IBAN Randomizados pero que cumples con los estandares españ
 
 ### Build
 
-Esta build de  maven es la que nos permite realizar la generación automática de los Contratos de los controladores y los DTO a partir de la definicion en **Swagger2.0**. Es por eso que al menos la primera vez que se ejecute el proyecto es imprescindible su construcción con **Maven**. En mi caso he tenido que configurar el plugin de eclipse para que funcione correctamente.
+Esta build de maven es la que nos permite realizar la generación automática de los contratos de los controladores y los DTO a partir de la definicion en **Swagger2.0**. Es por eso que, al menos la primera vez que se ejecute el proyecto, es imprescindible su construcción con **Maven**. En mi caso, he tenido que configurar el plugin de eclipse para que funcione correctamente.
 
 ```` xml
 <build>

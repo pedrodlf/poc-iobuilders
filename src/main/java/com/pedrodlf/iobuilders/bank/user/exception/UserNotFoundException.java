@@ -16,6 +16,11 @@ public class UserNotFoundException extends RuntimeException{
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
+
+	public UserNotFoundException() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
     
 	
 }

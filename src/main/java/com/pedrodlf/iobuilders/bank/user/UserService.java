@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.pedrodlf.iobuilders.bank.user.adapter.rest.UserRequestToUserConverter;
 import com.pedrodlf.iobuilders.bank.user.adapter.rest.UserToUserResponseConverter;
+import com.pedrodlf.iobuilders.bank.user.exception.UserNotFoundException;
 import com.pedrodlf.iobuilders.model.UserRequest;
 import com.pedrodlf.iobuilders.model.UserResponse;
 
@@ -33,8 +34,7 @@ public class UserService {
     }
 
     public UserResponse getUserById(UUID userId){
-        //TODO: No es la excepción correcta, hay que manejarlas con el exception handler y devolver un NotFoundException personalizado
-        User user = userRepository.findById(userId).orElseThrow(IllegalArgumentException::new);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         return userToUserResponseConverter.convert(user);
     }
     
