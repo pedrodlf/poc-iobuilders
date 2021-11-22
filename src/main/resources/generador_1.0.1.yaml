@@ -1,0 +1,327 @@
+swagger: '2.0'
+info:
+  description: This is a simple API
+  version: 2.0.0
+  title: IOBuilders
+  # put the contact info for your development or API team
+  contact:
+    email: pedrodlafuente@gmail.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: Users
+  description: Users domain  
+- name: Accounts
+  description: Accounts domain
+- name: Transactions
+  description: Transactions domain
+  
+basePath: '/v1'
+paths:
+  '/users':
+    post:
+      tags: 
+        - Users
+      summary: Create new user
+      description: generate new user
+      parameters: 
+        - name: UserSingIn
+          in: body
+          schema:
+            $ref: '#/definitions/UserRequest'
+          required: true  
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/UserResponse'
+    
+  '/users/{userID}': 
+    get:
+      tags: 
+        - Users
+      summary: Get user info 
+      description: get user info 
+      parameters: 
+       - name: userID
+         in: path
+         type: string
+         format: uuid
+         required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/UserResponse'
+         
+
+  
+  '/accounts':
+   post:
+      tags: 
+        - Accounts
+      summary: New Account
+      description: Create a new account 
+      parameters:
+        - name: acountRequest
+          in: body
+          schema:
+            $ref: '#/definitions/AccountRequest'
+          required: true  
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/AccountResponse'
+   
+   get:
+      tags: 
+        - Accounts
+      summary: User Accounts
+      description: Get User Account List find by User
+      parameters:
+        - name: userID
+          in: query
+          type: string
+          format: uuid
+          required: true
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/Accounts'         
+    
+    
+  '/accounts/{accountID}': 
+    get:
+      tags: 
+        - Accounts
+      summary: Account info
+      description: get Account info 
+      parameters:
+       - name: accountID
+         in: path
+         type: string
+         format: uuid
+         required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/AccountResponse'
+    
+    patch:
+      tags: 
+        - Accounts
+      summary: Set account Amount
+      description: Set account Balance
+      parameters:
+        - name: accountID
+          in: path
+          type: string
+          format: uuid
+          required: true  
+        - name: amount
+          in: query
+          type: number
+          required: true
+      responses:
+        200:
+          description: UPDATED
+          schema:
+            $ref: '#/definitions/AccountResponse'
+  
+  '/transactions':   
+    post:
+      tags: 
+        - Transactions
+      summary: New Transaction
+      description: Create new Transaction 
+      parameters: 
+       - name: transactionRequest
+         in: body
+         schema:
+          $ref: '#/definitions/TransactionRequest'
+         required: true  
+      responses:
+        201:
+          description: OK
+          schema:
+            $ref: '#/definitions/TransactionResponse'
+    get:
+      tags: 
+        - Transactions
+      summary: Account Transactions
+      description: Get Transactions by account
+      parameters: 
+       - name: iban
+         in: query
+         type: string
+         required: true  
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Transactions' 
+            
+  '/transactions/{transactionID}':
+    get:
+      tags: 
+        - Transactions
+      summary: Transaction info
+      description: Get Transaction info by transactionID
+      parameters:
+        - name: transactionID
+          in: path
+          type: string
+          format: uuid
+          required: true
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/TransactionResponse'    
+      
+   
+              
+definitions:
+
+  UserRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        example: "Name"
+      surname:
+        type: string
+        example: "Surname Name"
+      mail:
+        type: string
+        example: "mail@mail.com"
+      pass:
+        type: string
+        description: Base64 encode Password
+        example: "cGFzc3dvcmQ="
+  
+  
+  UserResponse:
+    type: object
+    properties:
+      userID:
+        type: string
+        format: uuid
+        example: "ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7"
+      name:
+        type: string
+        example: "Name"
+      surname:
+        type: string
+        example: "Surname Text"
+      mail:
+        type: string
+        example: "mail@mail.com"
+      uri:
+        type: string
+        example: "/users/ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7"  
+      
+  
+  Transactions:
+    type: object
+    properties:
+      results:
+        type: number
+        example: 1
+      transactions:
+        type: array
+        items:
+          $ref: '#/definitions/TransactionResponse'
+        
+        
+  TransactionRequest:
+    type: object
+    properties:
+      amount:
+        type: number
+        example: 100.55
+      beneficiaryIBAN:
+        type: string
+        example: "ES9121000418450200051332"
+      issuerIBAN:
+        type: string
+        example: "ES7921000813610123456789" 
+  
+  
+  TransactionResponse:
+    type: object
+    properties:
+      transactionID:
+        type: string
+        format: uuid
+        example: "ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7"
+      uri:
+        type: string
+        example: "/transactions/eda91322-4924-11ec-81d3-0242ac130003"
+      amount:
+        type: number
+        example: 100.55
+      beneficiaryIBAN:
+        type: string
+        example: "ES9121000418450200051332"
+      issuerIBAN:
+        type: string
+        example: "ES7921000813610123456789"
+      date:
+        type: string
+        format: date-time  
+  
+  AccountRequest:
+    type: object
+    properties:
+      userID:
+        type: string
+        format: uuid
+        
+  AccountResponse:
+    type: object
+    properties:
+      accountID:
+        type: string
+        format: uuid
+        example: "d8a1e7b6-655b-4f0a-9c30-039cd84c2eb5"
+      iban:
+        type: string
+        example: "ES9121000418450200051332"
+      uri:
+        type: string
+        example: "/accounts/d8a1e7b6-655b-4f0a-9c30-039cd84c2eb5"
+      owner:
+       type : string
+       example: "/users/ca53bbc5-c35c-4b5c-8095-0d154ab8d6c7"  
+      amount:
+       type: number
+       example: 1500.20
+  
+  Accounts:
+    type: object
+    properties:
+      results:
+        type: number
+        example: 1
+      accounts:
+        type: array
+        items:
+          $ref: '#/definitions/AccountResponse'
+          
+  errorResponse:
+    type: object
+    properties:
+      message:
+        type: string
+      status:
+        type: number
+      timestamp:
+        type: string
