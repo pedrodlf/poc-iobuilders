@@ -1,4 +1,4 @@
-package com.pedrodlf.iobuilders.bank.exceptions;
+package com.pedrodlf.iobuilders.bank.user.exception;
 
 public class UserNotFoundException extends RuntimeException{
 

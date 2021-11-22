@@ -1,4 +1,4 @@
-package com.pedrodlf.iobuilders.bank.exceptions;
+package com.pedrodlf.iobuilders.bank.transaction.exception;
 
 import com.pedrodlf.iobuilders.bank.account.Account;
 

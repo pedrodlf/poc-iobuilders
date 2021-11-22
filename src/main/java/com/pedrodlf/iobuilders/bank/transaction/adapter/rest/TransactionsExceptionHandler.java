@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.pedrodlf.iobuilders.bank.exceptions.NoEnoughFundsException;
+import com.pedrodlf.iobuilders.bank.transaction.exception.NoEnoughFundsException;
 import com.pedrodlf.iobuilders.model.ErrorResponse;
 
 @ControllerAdvice
