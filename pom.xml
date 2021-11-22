@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.pedrodlf</groupId>
 	<artifactId>iobuilders</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<name>iobuilders</name>
 	<description>POC rest</description>
 	<properties>
