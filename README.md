@@ -23,6 +23,7 @@
   - [Testing](#testing)
     - [Test Unitarios](#test-unitarios)
     - [Test Aceptación](#test-aceptación)
+  - [Trazabilidad](#trazabilidad)
   - [Contrato-API REST](#contrato-api-rest)
     - [Users API](#users-api)
     - [Accounts API](#accounts-api)
@@ -33,6 +34,7 @@
     - [Dependencias](#dependencias)
       - [spring-boot-starter-web](#spring-boot-starter-web)
       - [spring-boot-starter-data-jpa](#spring-boot-starter-data-jpa)
+      - [spring-cloud-starter-sleuth](#spring-cloud-starter-sleuth)
       - [h2](#h2)
       - [spring-boot-starter-test](#spring-boot-starter-test)
       - [springfox-swagger2](#springfox-swagger2)
@@ -264,6 +266,38 @@ Una vez instalada la coleción en Postman y selecionadas las variables de entorn
 
 >Se podria profundizar mas en los tipos de respuesta no obstante, dado el alcance de la prueba he estimado que estos ya  ofrecen una visión general de la funcionalidad del servicio.
 
+## Trazabilidad
+
+En Java el proyecto Spring Cloud Sleuth proporciona la funcionalidad de trazabilidad. En el esquema se observa como Sleuth envía las cabeceras de un servicio cliente a un servicio servidor.
+
+````
+   Client Span                                                Server Span
+┌──────────────────┐                                       ┌──────────────────┐
+│                  │                                       │                  │
+│   TraceContext   │           Http Request Headers        │   TraceContext   │
+│ ┌──────────────┐ │          ┌───────────────────┐        │ ┌──────────────┐ │
+│ │ TraceId      │ │          │ X─B3─TraceId      │        │ │ TraceId      │ │
+│ │              │ │          │                   │        │ │              │ │
+│ │ ParentSpanId │ │ Extract  │ X─B3─ParentSpanId │ Inject │ │ ParentSpanId │ │
+│ │              ├─┼─────────>│                   ├────────┼>│              │ │
+│ │ SpanId       │ │          │ X─B3─SpanId       │        │ │ SpanId       │ │
+│ │              │ │          │                   │        │ │              │ │
+│ │ Sampled      │ │          │ X─B3─Sampled      │        │ │ Sampled      │ │
+│ └──────────────┘ │          └───────────────────┘        │ └──────────────┘ │
+│                  │                                       │                  │
+└──────────────────┘                                       └──────────────────┘
+````
+
+Tal y como podemos ver en la siguiente traza, Sleuth se encarga de mantener la traza y propagarla. En un ecosistema de Spring Cloud se podria añadir un servidor Zipkin que permite registrar los pares trace-span que van generando los microservicios con la librería Spring Cloud Sleuth. Además nos provee de una interfaz para realizar búsquedas de las peticiones de nuestro sistema.
+
+````
+2021-11-23 03:21:19.664  INFO [iobuilders-bank,49510043c31cb9cd,49510043c31cb9cd] 18896 --- [nio-8080-exec-2] c.p.i.b.u.a.rest.UserControllerImpl      : usersPost mail@mail1.com
+2021-11-23 03:21:19.803  INFO [iobuilders-bank,c9b82ba3f3562877,c9b82ba3f3562877] 18896 --- [nio-8080-exec-3] c.p.i.b.u.a.rest.UserControllerImpl      : usersPost mail2@mail2.com
+2021-11-23 03:21:19.896  INFO [iobuilders-bank,dd9a94580ccb3306,dd9a94580ccb3306] 18896 --- [nio-8080-exec-4] c.p.i.b.u.a.rest.UserControllerImpl      : usersPost mail@mail1.com
+2021-11-23 03:21:19.899  WARN [iobuilders-bank,dd9a94580ccb3306,dd9a94580ccb3306] 18896 --- [nio-8080-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 23505, SQLState: 23505
+2021-11-23 03:21:19.900 ERROR [iobuilders-bank,dd9a94580ccb3306,dd9a94580ccb3306] 18896 --- [nio-8080-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : Violación de indice de Unicidad ó Clave primaria:
+````
+
 ## Contrato-API REST
 
 Para la capa REST he definido un Swagger2.0 que contiene los tres [contratos](https://github.com/pedrodlf/poc-iobuilders/blob/main/src/main/resources/generador_1.0.1.yaml), para su validación he empleado [herramientas](https://42crunch.com/) de control de calidad de APIs basadas en la normativa definida por  *OWASP Top 10 for API Security*. Con el siguiente resultado:
@@ -341,6 +375,23 @@ Características principales de Spring Data JPA que son las siguientes:
 <dependency>
  <groupId>org.springframework.boot</groupId>
  <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+````
+
+#### spring-cloud-starter-sleuth
+
+Es una librería que permite identificar las peticiones de forma unívoca sobre nuestra arquitectua. Para ello sobre cada petición mantiene, entre otros, los siguientes atributos:
+
+- **Trace**. Identificador asociado a la petición que viaja entre los microservicios
+- **Span**. Identificador de la petición REST actual que se encuentra en un determinado microservicio
+
+De esta forma podemos deducir que un trace contiene un conjunto de span
+
+```` xml
+<dependency>
+   <groupId>org.springframework.cloud</groupId>
+   <artifactId>spring-cloud-starter-sleuth</artifactId>
+   <version>3.0.4</version>
 </dependency>
 ````
 
