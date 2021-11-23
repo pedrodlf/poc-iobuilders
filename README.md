@@ -51,6 +51,7 @@
 | Fecha      | Versión | Estado | Modificado               |
 | :--------- | :------ | :----- | :----------------------- |
 | 22/11/2021 | 1.0.1   | OK     | pedrodlafuente@gmail.com |
+| 23/11/2021 | 1.0.16   | OK     | pedrodlafuente@gmail.com |
 
 ## Necesidades
 

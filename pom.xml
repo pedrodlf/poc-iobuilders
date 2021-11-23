@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.pedrodlf</groupId>
 	<artifactId>iobuilders</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.16</version>
 	<name>iobuilders</name>
 	<description>POC rest</description>
 	<properties>
@@ -19,7 +19,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<springfox-version>2.7.0</springfox-version>
-		<api.version>1.0.1</api.version>
+		<api.version>1.0.16</api.version>
 	</properties>
 	<dependencies>
 		<dependency>
