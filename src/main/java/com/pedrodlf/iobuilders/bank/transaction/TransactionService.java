@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pedrodlf.iobuilders.bank.account.Account;
 import com.pedrodlf.iobuilders.bank.account.adapter.rest.AccountAdapter;
@@ -44,6 +45,7 @@ public class TransactionService {
 		this.transactionListToTransactionsConverter = transactionListToTransactionsConverter;
 	}
 
+	@Transactional
 	public TransactionResponse createTransaction(TransactionRequest transactionRequest) {
 		// Vadidacion de Cuentas
 		Account issuer = accountAdapter.getOptionalAccountByIBAN(transactionRequest.getIssuerIBAN()).orElseThrow(AccountNotFoundException::new);
